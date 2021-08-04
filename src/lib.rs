@@ -30,7 +30,7 @@
 //! ```
 extern crate xml;
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::io::{Read, Write};
 use std::borrow::Cow;
 use std::fmt;
@@ -57,7 +57,7 @@ pub struct Element {
     pub name: String,
 
     /// The Element attributes
-    pub attributes: HashMap<String, String>,
+    pub attributes: BTreeMap<String, String>,
 
     /// Children
     pub children: Vec<Element>,
@@ -116,7 +116,7 @@ fn build<B: Read>(reader: &mut EventReader<B>, mut elem: Element) -> Result<Elem
                 attributes,
                 namespace,
             }) => {
-                let mut attr_map = HashMap::new();
+                let mut attr_map = BTreeMap::new();
                 for attr in attributes {
                     attr_map.insert(attr.name.local_name, attr.value);
                 }
@@ -159,7 +159,7 @@ impl Element {
             prefix: None,
             namespace: None,
             namespaces: None,
-            attributes: HashMap::new(),
+            attributes: BTreeMap::new(),
             children: Vec::new(),
             text: None,
         }
@@ -175,7 +175,7 @@ impl Element {
                     attributes,
                     namespace,
                 }) => {
-                    let mut attr_map = HashMap::new();
+                    let mut attr_map = BTreeMap::new();
                     for attr in attributes {
                         attr_map.insert(attr.name.local_name, attr.value);
                     }
